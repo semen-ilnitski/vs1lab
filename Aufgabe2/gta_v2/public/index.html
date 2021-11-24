@@ -31,12 +31,14 @@
                     <legend>Add a new GeoTag</legend>
                     <label for="lat_text" >Latitude:</label>
                     <input type="text" id="lat_input" placeholder=" lat"  disabled>
+                    <input type="hidden" id="lat_input_hidden" placeholder=" lat">
                     <label for="long_text" >Longitude:</label> 
                     <input type="text" id="long_input" placeholder=" long"  disabled> 
+                    <input type="hidden" id="long_input_hidden" placeholder=" long"> 
                     <label for="name_text" >Name:</label> 
-                    <input type="text" id="name_input" pattern="([A-Z])([a-z])+" placeholder=" e.g. Central Berlin" maxlength="10" required>  
+                    <input type="text" id="name_input" pattern="[A-Za-z]+" placeholder=" e.g. Central Berlin" maxlength="10" required>  
                     <label for="hashtag_text" >Hashtag:</label>
-                    <input type="text" id="hashtag_input" pattern="(#)\w+" maxlength="11" placeholder=" e.g. #ber" required>
+                    <input type="text" id="hashtag_input" pattern="#\w+" maxlength="11" placeholder=" e.g. #ber" required>
                     <input type="submit" id="add_tag_button" value="Add Tag">
                 </fieldset>
             </form>
@@ -55,6 +57,7 @@
                 <legend>Search</legend>
                 <label for="search">Searchterm or Keyword</label>
                 <input type="text" id="search_term" placeholder=" e.g. Berlin" required>
+                <input type="hidden" id="search_term" placeholder=" e.g. Berlin">
                 <input type="submit" id="search_button" value="Search">
                 </fieldset>
             </form>
@@ -63,9 +66,8 @@
             <div class="discovery__wrapper">
                 <div class="discovery__taglist">
                     <ul class="discovery__results" id="discoveryResults">
-                        <li>Castle (49.013525, 8.404359) #sight</li>
+                        <li>Castle (49.01379, 8.404435) #sight</li>
                         <li>IWI (49.01379, 8.390071) #edu</li>
-                        <li>Rheinhafen (49.0188382, 8.3396811) #sight</li>
                     </ul>
                 </div>
 
@@ -81,10 +83,11 @@
     <footer class="footer">
         <span>(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
+
     <!-- Load JavaScripts
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="./javascripts/geotagging.js"></script>
-</body>
 
+</body>
 </html>

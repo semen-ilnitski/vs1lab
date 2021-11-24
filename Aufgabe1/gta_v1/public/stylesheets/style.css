@@ -214,6 +214,7 @@ input:invalid{
   color: var(--text-color-invalid);
 }
 
+
 /* ### TODO ### Styles for Footer Component */
 .footer{
   flex-flow: column-reverse;

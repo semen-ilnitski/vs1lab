@@ -31,12 +31,14 @@
                     <legend>Add a new GeoTag</legend>
                     <label for="lat_text" >Latitude:</label>
                     <input type="text" name="lat_input" placeholder=" lat"  disabled>
+                    <input type="hidden" name="lat_input" placeholder=" lat">
                     <label for="long_text" >Longitude:</label> 
                     <input type="text" name="long_input" placeholder=" long"  disabled> 
+                    <input type="hidden" name="long_input" placeholder=" long"> 
                     <label for="name_text" >Name:</label> 
-                    <input type="text" id="name_input" pattern="([A-Z])([a-z])+" placeholder=" e.g. Central Berlin" maxlength="10" required>  
+                    <input type="text" id="name_input" pattern="[A-Za-z]+" placeholder=" e.g. Central Berlin" maxlength="10" required>  
                     <label for="hashtag_text" >Hashtag:</label>
-                    <input type="text" id="hashtag_input" pattern="(#)\w+" maxlength="11" placeholder=" e.g. #ber" required>
+                    <input type="text" id="hashtag_input" pattern="#\w+" maxlength="11" placeholder=" e.g. #ber" required>
                     <input type="submit" id="add_tag_button" value="Add Tag">
                 </fieldset>
             </form>
@@ -55,6 +57,7 @@
                 <legend>Search</legend>
                 <label for="search">Searchterm or Keyword</label>
                 <input type="text" id="search_term" placeholder=" e.g. Berlin" required>
+                <input type="hidden" id="search_term" placeholder=" e.g. Berlin">
                 <input type="submit" id="search_button" value="Search">
                 </fieldset>
             </form>

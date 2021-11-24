@@ -37,7 +37,7 @@ class LocationHelper {
      */
     static findLocation(callback) {
         const geoLocationApi = navigator.geolocation;
-
+        console.log("test")
         if (!geoLocationApi) {
             throw new Error("The GeoLocation API is unavailable.");
         }
@@ -63,7 +63,7 @@ class LocationHelper {
  * A class to help using the MapQuest map service.
  */
 class MapManager {
-    #apiKey = '';
+    #apiKey = 'UNxtPk1IYOiMFhGJP6Fqf8bFMdLOyDXZ';
 
     /**
      * Create a new MapManager instance.
@@ -86,7 +86,6 @@ class MapManager {
             console.log("No API key provided.");
             return "images/mapview.jpg";
         }
-
         let tagList = `You,${latitude},${longitude}`;
         tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.latitude},${tag.longitude}`, "");
 
@@ -105,7 +104,10 @@ class MapManager {
 // ... your code here ...
 function updateLocation (helper) {
   document.getElementById("lat_input").value = helper.latitude;
+  document.getElementById("lat_input_hidden").value = helper.latitude;
   document.getElementById("long_input").value = helper.longitude;
+  document.getElementById("long_input_hidden").value = helper.longitude;
+ 
   mm = new MapManager('mTAajLz6sIamsAGNO3Fub5cEUdFRfTRH');
   var mapView = document.getElementById("mapView");
   var list = document.getElementById("discoveryResults").getElementsByTagName("li");
@@ -124,6 +126,7 @@ function updateLocation (helper) {
   }
   mapView.src = mm.getMapUrl(helper.latitude, helper.longitude, tags, 13);
 }
+
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     LocationHelper.findLocation(updateLocation);
