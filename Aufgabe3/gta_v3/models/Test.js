@@ -1,9 +1,8 @@
-key = "campus";
-var re = new RegExp(key);
+const InMemoryGeoTagStore = require("./geotag-store");
+const GeoTagExamples = require("./geotag-examples");
 
-var text = "campus____irgendetwas";
+geotagstore = new InMemoryGeoTagStore(GeoTagExamples.tagList);
+geotagexamples = new GeoTagExamples();
+const ausgabe = JSON.stringify(taglist);
 
-if(text.match(re))
-{
-    console.log("Okay");
-}
+console.log(ausgabe);

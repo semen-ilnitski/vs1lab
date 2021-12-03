@@ -7,6 +7,7 @@
 // "console.log" writes to the browser's console. 
 // The console window must be opened explicitly in the browser.
 // Try to find this output in the browser...
+
 console.log("The geoTagging script is going to start...");
 
 
@@ -31,11 +32,31 @@ function updateLocation (helper) {
 
   mm = new MapManager('mTAajLz6sIamsAGNO3Fub5cEUdFRfTRH');
   var mapView = document.getElementById("mapView");
-  var taglist_json = mapView.getAttribute("data-tags");
-  var tags = JSON.parse(taglist_json);
+  var taglist_json = mapView.getAttribute('data-tags');
+  let tags = JSON.parse(taglist_json);
 
 
-  //window.error(helper.latitude);
+  /*if(taglist_json == '/')
+  {
+      geotag3 = {name : "test",
+          latitude: 0, longitude: 0, hashtag: ""};
+
+      tags = [geotag3];
+
+  }
+
+  else
+  {
+      tags = JSON.parse(taglist_json);
+  }
+*/
+
+
+
+
+
+
+
   mapView.src = mm.getMapUrl(helper.latitude, helper.longitude, tags, 13);
 
 }

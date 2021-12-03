@@ -49,7 +49,10 @@ class GeoTag {
         return this.#hashtag;
     }
 
-    
+    toJSON()
+    {
+        return {latitude: this.#latitude, longitude: this.#longitude, name: this.#name, hashtag: this.#hashtag};
+    }
 
     
     

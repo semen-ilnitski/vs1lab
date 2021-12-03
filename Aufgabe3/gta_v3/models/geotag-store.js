@@ -7,6 +7,8 @@
 
 
 
+const GeoTag = require("./geotag");
+
 /**
  * A class for in-memory-storage of geotags
  * 
@@ -34,7 +36,12 @@ class InMemoryGeoTagStore{
 
     constructor(list = [])
     {
-        this.#feld = list;
+        for(let i = 0; i < list.length; i++)
+        {
+            let geotag = new GeoTag(list[i][1], list[i][2], list[i][0], list[i][3]);
+            this.addGeoTag(geotag);
+        }
+
     }
 
     addGeoTag(geotag)
@@ -66,22 +73,30 @@ class InMemoryGeoTagStore{
 
      getNearbyGeoTags(latitude, longitude)
      {
+         let radius = this.#radius;
          var geotags = [];
-         for(var geotag in this.#feld)
-         {
+         this.#feld.forEach(function (geotag){
+
              var x = geotag.latitude-latitude;
              var y = geotag.longitude-longitude;
              var distance = Math.sqrt((x*x)+(y*y) );
 
-             if(distance <= this.#radius)
+             if(distance <= radius)
              {
                  geotags.push(geotag);
              }
 
-         }
+         });
 
          return geotags;
      }
+
+     get getFeld()
+     {
+         return this.#feld;
+     }
+
+
 
      removeGeoTag(geotag)
      {

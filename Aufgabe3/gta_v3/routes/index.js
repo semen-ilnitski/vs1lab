@@ -57,9 +57,9 @@ const store = new GeoTagStore(GeoTagExamples.tagList);
 
 
 router.get('/', (req, res) => {
-    var location = {
 
-    };
+
+
   res.render('index', { taglist: [], latitude: 0, longitude: 0, searchterm: "" } )  //bei get-Abfrage
 });
 
@@ -88,8 +88,8 @@ router.post("/tagging", function (req, res){
        store.addGeoTag(geotag);
 
 
-       res.render(`index`, {taglist: store.getNearbyGeoTags(req.body.latitude, req.body.longitude)});
-
+       res.render('index', {taglist: store.getNearbyGeoTags(req.body.latitude, req.body.longitude), latitude: req.body.latitude, longitude: req.body.longitude, searchterm: req.body.searchterm});
+       //res.render(`index`, {taglist: store.getFeld, latitude: req.body.latitude, longitude: req.body.longitude, searchterm: req.body.searchterm});
 
 
 });    //GeoTag wird in /tagging hinzugefügt
