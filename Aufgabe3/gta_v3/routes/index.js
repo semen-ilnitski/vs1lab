@@ -60,7 +60,7 @@ router.get('/', (req, res) => {
 
 
 
-  res.render('index', { taglist: [], latitude: 0, longitude: 0, searchterm: "" } )  //bei get-Abfrage
+  res.render('index', { taglist: [], latitude: req.body.latitude, longitude: req.body.longitude} )  //bei get-Abfrage
 });
 
 /**
@@ -88,7 +88,7 @@ router.post("/tagging", function (req, res){
        store.addGeoTag(geotag);
 
 
-       res.render('index', {taglist: store.getNearbyGeoTags(req.body.latitude, req.body.longitude), latitude: req.body.latitude, longitude: req.body.longitude, searchterm: req.body.searchterm});
+       res.render(`index`, {taglist: store.getNearbyGeoTags(req.body.latitude, req.body.longitude), latitude: req.body.latitude, longitude: req.body.longitude});
        //res.render(`index`, {taglist: store.getFeld, latitude: req.body.latitude, longitude: req.body.longitude, searchterm: req.body.searchterm});
 
 
@@ -120,10 +120,11 @@ router.post("/tagging", function (req, res){
 
 router.post("/discovery", function (req, res){
 
-  console.log(req.body);
+
+  res.render(`index`, {taglist: store.searchNearbyGeoTags(req.body.latitude, req.body.longitude, req.body.searchterm), latitude : req.body.latitude, longitude : req.body.longitude});
 
 
-  res.render(`index`, {taglist: store.searchNearbyGeoTags(req.body.latitude, req.body.longitude, req.body.searchterm)});
+
 
 });
 

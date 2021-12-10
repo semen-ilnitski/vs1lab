@@ -32,7 +32,7 @@ class InMemoryGeoTagStore{
     // TODO: ... your code here ...
 
     #feld = [];
-    #radius = 10;
+    #radius = 2400; // in meter
 
     constructor(list = [])
     {
@@ -51,23 +51,19 @@ class InMemoryGeoTagStore{
 
      searchNearbyGeoTags(latitude, longitude, key)
      {
-         var geotags = [];
-         for(var geotag in this.#feld)
-         {
-             if(geotag.name.match(key))
-             {
-                 var x = geotag.latitude-latitude;
-                 var y = geotag.longitude-longitude;
-                 var distance = Math.sqrt((x*x)+(y*y) );
+         var geotags = this.getNearbyGeoTags(latitude, longitude);
+         var output = [];
+         let regex = new RegExp(key);
+         geotags.forEach(function (geotag) {
 
-                 if(distance <= this.#radius)
-                 {
-                     geotags.push(geotag);
-                 }
+             if(regex.test(geotag.name) || regex.test(geotag.hashtag))
+             {
+                 output.push(geotag);
              }
 
-         }
-         return geotags;
+         } );
+
+         return output;
      }
 
 
@@ -77,9 +73,19 @@ class InMemoryGeoTagStore{
          var geotags = [];
          this.#feld.forEach(function (geotag){
 
-             var x = geotag.latitude-latitude;
-             var y = geotag.longitude-longitude;
-             var distance = Math.sqrt((x*x)+(y*y) );
+             const R = 6371e3; // metres
+             const φ1 = geotag.latitude * Math.PI/180; // φ, λ in radians
+             const φ2 = latitude * Math.PI/180;
+             const Δφ = (latitude-geotag.latitude) * Math.PI/180;
+             const Δλ = (longitude-geotag.longitude) * Math.PI/180;
+
+             const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+                 Math.cos(φ1) * Math.cos(φ2) *
+                 Math.sin(Δλ/2) * Math.sin(Δλ/2);
+             const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+             const distance = R * c; // in metres
+
 
              if(distance <= radius)
              {

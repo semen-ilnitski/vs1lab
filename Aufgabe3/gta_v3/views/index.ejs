@@ -59,8 +59,10 @@
                 <fieldset>
                 <legend>Search</legend>
                 <label for="search">Searchterm or Keyword</label>
-                <input type="text" id="search_term" placeholder=" e.g. Berlin" name="searchterm" value=<%searchterm%>  required>
-                <input type="hidden" id="search_term" placeholder=" e.g. Berlin">
+                <input type="text" id="search_term" placeholder=" e.g. Berlin" name="searchterm"  required>
+                <input type="hidden" id="search_term"  placeholder=" e.g. Berlin">
+                    <input type="hidden" id="lat_input_hidden2" placeholder=" lat" name="latitude" value=<%latitude%>  >
+                    <input type="hidden" id="long_input_hidden2" placeholder=" long" name="longitude" value=<%longitude%>  >
                 <input type="submit" id="search_button" value="Search">
                 </fieldset>
             </form>
@@ -76,7 +78,7 @@
                 </div>
 
                 <div class="discovery__map">
-                    <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" data-tags=<%= JSON.stringify(taglist) %>  />
+                    <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" data-tags="<%= JSON.stringify(taglist) %>"  />
                     <span>Result map</span>
                 </div>
             </div>
@@ -85,7 +87,7 @@
     </main>
 
     <footer class="footer">
-        <span>(c) 2021/22 HKA_IWI_VSYS</span>
+        <span>(c) Christian-Pape-Fan-Club </span>
     </footer>
 
     <!-- Load JavaScripts

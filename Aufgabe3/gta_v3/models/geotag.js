@@ -51,8 +51,12 @@ class GeoTag {
 
     toJSON()
     {
-        return {latitude: this.#latitude, longitude: this.#longitude, name: this.#name, hashtag: this.#hashtag};
+        return {latitude: this.#latitude.toString(), longitude: this.#longitude.toString(), name: this.#name.toString(), hashtag: this.#hashtag.toString()};
     }
+
+
+
+
 
     
     

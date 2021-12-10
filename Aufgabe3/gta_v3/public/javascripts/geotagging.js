@@ -23,37 +23,21 @@ console.log("The geoTagging script is going to start...");
 // ... your code here ...
 function updateLocation (helper) {
 
+
+
+
     document.getElementById("lat_input").value = helper.latitude;
     document.getElementById("lat_input_hidden").value = helper.latitude;
     document.getElementById("long_input").value = helper.longitude;
     document.getElementById("long_input_hidden").value = helper.longitude;
-
+    document.getElementById("lat_input_hidden2").value = helper.latitude;
+    document.getElementById("long_input_hidden2").value = helper.longitude;
 
 
   mm = new MapManager('mTAajLz6sIamsAGNO3Fub5cEUdFRfTRH');
   var mapView = document.getElementById("mapView");
   var taglist_json = mapView.getAttribute('data-tags');
   let tags = JSON.parse(taglist_json);
-
-
-  /*if(taglist_json == '/')
-  {
-      geotag3 = {name : "test",
-          latitude: 0, longitude: 0, hashtag: ""};
-
-      tags = [geotag3];
-
-  }
-
-  else
-  {
-      tags = JSON.parse(taglist_json);
-  }
-*/
-
-
-
-
 
 
 
@@ -63,5 +47,20 @@ function updateLocation (helper) {
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    LocationHelper.findLocation(updateLocation);
+
+    var lat = document.getElementById("lat_input_hidden").value;
+    var long = document.getElementById("long_input_hidden").value;
+
+
+    if(lat === "" || long === "")
+    {
+        LocationHelper.findLocation(updateLocation); // lat... und long... verändern sich
+    }
+    else
+    {
+        var helper = new LocationHelper(lat, long);
+        updateLocation(helper);
+    }
+
+
 });
