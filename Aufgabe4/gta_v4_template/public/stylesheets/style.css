@@ -1,0 +1,240 @@
+/*
+  File origin: VS1LAB A1b  
+
+  CSS style is BEM. Classes used for CSS, IDs for JavaScript querying (future use).
+  CSS variables used for clarity and themability (e.g. through SSR). 
+  Inherited box sizing used for ease of including 3rd party content-box components.
+*/
+
+/* Global styling */
+
+html {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+
+  /* This approach prevents issues with 3rd party content-box components */
+  box-sizing: inherit;
+}
+
+
+/* Variables (example: see declaration for "a" below) */
+
+:root {
+  --background-color: black;
+  --border-color: #ffa31a;
+
+  --text-color:rgb(232, 230, 227);
+  --text-color-invalid:#d43c21;
+  --text-bg-color: rgb(25, 25, 25);
+
+  --list-bg:#462e0b;
+  --list-border:rgb(49, 31, 4);
+
+  --hover-color: rgb(75, 75, 75);
+}
+
+
+/* HTML element styles */
+
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  
+  background-color: var(--background-color);
+  color:var(--text-color);
+}
+
+a {
+  color: var(--border-color);
+}
+
+/* ### TODO ### Styles for other HTML elements */
+
+/* ... your code here ... */
+
+
+/* Grid styles (no changes required) */
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.col-1 {
+  width: calc(8.33% - 1rem);
+}
+
+.col-2 {
+  width: calc(16.66% - 1rem);
+}
+
+.col-3 {
+  width: calc(25% - 1rem);
+}
+
+.col-4 {
+  width: calc(33.33% - 1rem);
+}
+
+.col-5 {
+  width: calc(41.66% - 1rem);
+}
+
+.col-6 {
+  width: calc(50% - 1rem);
+}
+
+.col-7 {
+  width: calc(58.33% - 1rem);
+}
+
+.col-8 {
+  width: calc(66.66% - 1rem);
+}
+
+.col-9 {
+  width: calc(75% - 1rem);
+}
+
+.col-10 {
+  width: calc(83.33% - 1rem);
+}
+
+.col-11 {
+  width: calc(91.66% - 1rem);
+}
+
+.col-12 {
+  width: calc(100% - 1rem);
+}
+
+/* ### TODO ### Styles for Main Component */
+.main{
+  display: flex;
+  margin-left: 15px;
+  margin-right: 15px;
+  flex-direction: row;
+  gap: 25px;
+}
+
+
+input{
+  width: 250px;
+  height: 40px;
+  margin-bottom: 10px;
+  background-color: var(--text-bg-color);
+  color:var(--text-color);
+  border-width: 1px;
+  border-radius: 10px;
+  border-color: var(--border-color);
+}
+
+fieldset{
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  border-radius: 10px;
+  border-color: var(--border-color);
+}
+ 
+/* ### TODO ### Styles for Tagging Component */
+.main__tagging{
+  display: flex;
+  flex-direction: column;
+  
+}
+
+/* ### TODO ### Styles for Discovery Component */
+.main__discovery{
+  display: flex;
+  flex-direction: column;
+}
+
+.discovery__wrapper{
+  margin-top : 25px;
+  display: flex;
+  gap: 10px;
+}
+
+li {
+  list-style-type: none;
+  background-color: var(--list-bg);
+  border-radius: 10px;
+  border: 2px solid var(--list-border);
+  margin-bottom: 5px;
+  height: 60px;
+  width: 200px;
+  padding: 10px;
+}
+
+
+/* ### TODO ### Styles for Header Component */
+.header{
+  display: grid;
+  grid-template-columns: 5% 75% 15%;
+  border: 2px solid var(--border-color);
+  border-radius: 15px;
+  height: 100px;
+  margin-bottom: 50px;
+}
+.header__image{
+  grid-column: 1;
+  margin: auto;
+  
+}
+.header__title{
+  grid-column: 2;
+  align-items: center;
+  margin: auto;
+}
+.header__navigation{
+  grid-column: 3;
+  margin: auto;
+}
+
+
+/*Additional Dark Mode Configurations*/
+input:hover{
+  background-color: var(--hover-color);
+}
+
+input:disabled{
+  background-color: var(--hover-color);
+}
+input:invalid{
+  color: var(--text-color-invalid);
+}
+
+
+/* ### TODO ### Styles for Footer Component */
+.footer{
+  flex-flow: column-reverse;
+  margin-top: auto;
+  padding: 20px 0px 0px 10px;
+  height: 60px;
+  background-color: var(--text-bg-color);
+
+}
+
+/* ### TODO ### Media Queries */
+@media (max-width: 1000px) {
+  .main {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .discovery__wrapper{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
