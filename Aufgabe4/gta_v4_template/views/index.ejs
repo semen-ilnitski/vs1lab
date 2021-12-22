@@ -33,11 +33,11 @@
                 <fieldset>
                     <legend>Add a new GeoTag</legend>
                     <label for="lat_text" >Latitude:</label>
-                    <input type="text" id="lat_input" placeholder=" lat"     value=<%latitude%>  disabled>
-                    <input type="hidden" id="lat_input_hidden" placeholder=" lat" name="latitude" value=<%latitude%>  >
+                    <input type="text" id="lat_input" placeholder=" lat"  disabled >
+                    <input type="hidden" id="lat_input_hidden" placeholder=" lat" name="latitude" >
                     <label for="long_text" >Longitude:</label> 
-                    <input type="text" id="long_input" placeholder=" long"  value=<%longitude%>  disabled>
-                    <input type="hidden" id="long_input_hidden" placeholder=" long" name="longitude"  value=<%longitude%>  >
+                    <input type="text" id="long_input" placeholder=" long" disabled >
+                    <input type="hidden" id="long_input_hidden" placeholder=" long" name="longitude" >
                     <label for="name_text" >Name:</label> 
                     <input type="text" id="name_input" pattern="[A-Za-z]+" placeholder=" e.g. Central Berlin" maxlength="10" name="name" required>
                     <label for="hashtag_text" >Hashtag:</label>
@@ -60,9 +60,8 @@
                 <legend>Search</legend>
                 <label for="search">Searchterm or Keyword</label>
                 <input type="text" id="search_term" placeholder=" e.g. Berlin" name="searchterm"  required>
-                <input type="hidden" id="search_term"  placeholder=" e.g. Berlin">
-                    <input type="hidden" id="lat_input_hidden2" placeholder=" lat" name="latitude" value=<%latitude%>  >
-                    <input type="hidden" id="long_input_hidden2" placeholder=" long" name="longitude" value=<%longitude%>  >
+                <input type="hidden" id="lat_input_hidden2" placeholder=" lat" name="latitude" >
+                <input type="hidden" id="long_input_hidden2" placeholder=" long" name="longitude" >
                 <input type="submit" id="search_button" value="Search">
                 </fieldset>
             </form>
@@ -71,14 +70,18 @@
             <div class="discovery__wrapper">
                 <div class="discovery__taglist">
                     <ul class="discovery__results" id="discoveryResults">
-                        <% if (taglist !== undefined) taglist.forEach(function(gtag) { %>
-                            <li><%= gtag.name %> ( <%= gtag.latitude %>,<%= gtag.longitude %>) <%= gtag.hashtag %> </li>
-                        <% }); %>
+                        <!-- taglist -->
                     </ul>
+                    <div class= "discovery__page"> 
+                        <input class="discovery__page__button" type="submit" id="previous" value="◄">
+                        <span id="page">Page</span>
+                        <input class="discovery__page__button" type="submit" id="next" value="►">
+                    </div>
+
                 </div>
 
                 <div class="discovery__map">
-                    <img src="./images/mapview.jpg" alt="a map with locations" id="mapView" data-tags="<%= JSON.stringify(taglist) %>"  />
+                    <img src="./images/mapview.jpg" alt="a map with locations" id="mapView"  />
                     <span>Result map</span>
                 </div>
             </div>
@@ -87,7 +90,7 @@
     </main>
 
     <footer class="footer">
-        <span>(c) Christian-Pape-Fan-Club </span>
+        <span>(c) 2021/22 HKA_IWI_VSYS</span>
     </footer>
 
     <!-- Load JavaScripts

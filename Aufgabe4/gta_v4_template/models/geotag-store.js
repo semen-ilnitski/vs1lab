@@ -99,21 +99,14 @@ class InMemoryGeoTagStore{
 
      get getFeld()
      {
-         return this.#feld;
+        return this.#feld;
      }
 
 
 
-     removeGeoTag(geotag)
+     removeGeoTag(id)
      {
-         for(var i = 0; i < this.#feld.length; i++)
-         {
-             if(this.#feld[i].name == geotag.name)
-             {
-                 this.#feld.splice(i, 1);
-             }
-
-         }
+        this.#feld.splice(id, 1);
      }
 
 

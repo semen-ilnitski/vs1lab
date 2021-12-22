@@ -1,0 +1,33 @@
+# Erstellen, Auslesen, Ändern, Suchen, Löschen
+post http://localhost:3000/api/geotags
+Content-Type: application/json
+
+{
+    "name": "Karlsruhe",
+    "hashtag": "#KA",
+    "latitude":"49.006889",
+    "longitude": "8.403653"
+}
+
+###
+get http://localhost:3000/api/geotags/11
+
+###
+put http://localhost:3000/api/geotags/11
+Content-Type: application/json
+
+{
+    "name": "KA",
+    "hashtag": "#DE",
+    "latitude":"49.006889",
+    "longitude": "8.403653"
+}
+
+###
+get http://localhost:3000/api/geotags/?l1=49.006889&l2=8.403653&s=KA
+
+###
+get http://localhost:3000/api/geotags/?l1=49.006889&l2=8.403653
+
+###
+delete http://localhost:3000/api/geotags/11
