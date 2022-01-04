@@ -27,7 +27,9 @@ const GeoTag = require('../models/geotag');
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
 const GeoTagExamples = require("../models/geotag-examples.js");
+const Pagination = require('../models/pagination.js');
 const store = new GeoTagStore(GeoTagExamples.tagList);
+var pagination;
 
 // App routes (A3)
 
@@ -74,8 +76,53 @@ router.get('/api/geotags', (req, res) => {   //Feld mit geotags zurückgeben
   } else {
     geotags = store.searchNearbyGeoTags(latitude, longitude, searchterm);
   }
-  res.json(geotags);
 
+  var page;
+  if(geotags.length === 0) {
+    page = {
+      taglist: [],
+      message: "",
+      hasPrev: false,
+      hasNext: false
+    };
+    
+  } else {
+    pagination = new Pagination(geotags);
+    page = {
+      taglist: pagination.currentTags,
+      message: pagination.currentPage + "/" + pagination.lastPage + " ("+ pagination.amountTags + ")",
+      hasPrev: pagination.hasPrevious(),
+      hasNext: pagination.hasNext()
+    };
+  }
+  res.json(page);
+
+});
+
+router.get('/api/geotags/prevPage', (req, res) => {
+  pagination.prev();
+  const page = {
+    taglist: pagination.currentTags,
+    message: pagination.currentPage + "/" + pagination.lastPage + " ("+ pagination.amountTags + ")",
+    hasPrev: pagination.hasPrevious(),
+    hasNext: pagination.hasNext()
+  };
+
+  res.json(page);
+  
+});
+
+router.get('/api/geotags/nextPage', (req, res) => {
+  pagination.next();
+  const page = {
+    taglist: pagination.currentTags,
+    message: pagination.currentPage + "/" + pagination.lastPage + " ("+ pagination.amountTags + ")",
+    hasPrev: pagination.hasPrevious(),
+    hasNext: pagination.hasNext()
+  };
+
+  res.json(page);
+  
 });
 
 /**
@@ -96,8 +143,16 @@ router.post('/api/geotags', (req, res) => {
      store.addGeoTag(req.body);
      var id = store.getFeld.length - 1;
      res.setHeader("Location", "http://localhost:3000/api/geotags/"+ id);
-     res.json(req.body);
-     res.status(201).end(); 
+     pagination = new Pagination([req.body]);
+     const page = {
+      taglist: pagination.currentTags,
+      message: pagination.currentPage + "/" + pagination.lastPage + " ("+ pagination.amountTags + ")",
+      hasPrev: pagination.hasPrevious(),
+      hasNext: pagination.hasNext()
+    };
+  
+    res.json(page);
+    res.status(201).end(); 
 });
 
 /**

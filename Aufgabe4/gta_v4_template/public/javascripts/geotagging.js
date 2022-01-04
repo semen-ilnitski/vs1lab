@@ -26,6 +26,7 @@ var mm;
 var lat;
 var long;
 
+
 function updateLocation (helper) {
 
     lat = helper.latitude;
@@ -50,6 +51,25 @@ function updateGeoTags(taglist) {
 
 }
 
+function showPagination(page) {
+    if(page.taglist.length === 0) {
+        document.getElementById("discoveryPage").style.display = "none";
+    } else {
+        document.getElementById("discoveryPage").style.display = "flex";
+        document.getElementById("page").innerHTML = page.message;
+    }    
+    updateGeoTags(page.taglist);
+    updateButtons(page);
+}
+
+function updateButtons(page) {
+    var prev = document.getElementById("previous");
+    var next = document.getElementById("next");
+
+    prev.disabled = !page.hasPrev;
+    next.disabled = !page.hasNext;
+}
+
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
     mm = new MapManager('mTAajLz6sIamsAGNO3Fub5cEUdFRfTRH');
@@ -61,12 +81,12 @@ document.addEventListener("DOMContentLoaded", () => {
             latitude: lat, 
             longitude: long,
         };
-        fetch("http://localhost:3000/api/geotags",{ 
+        fetch("http://localhost:3000/api/geotags", { 
             method: "POST", 
             headers: { "Content-Type": "application/json" }, 
             body: JSON.stringify(geotag) 
         }).then(res => res.json())
-        .then(geotag => updateGeoTags([geotag]));
+        .then(page => showPagination(page));
         
     });
 
@@ -74,13 +94,28 @@ document.addEventListener("DOMContentLoaded", () => {
         evt.preventDefault();
         var s = document.getElementById("search_term").value;
 
-        fetch("http://localhost:3000/api/geotags?l1=" + lat + "&l2=" + long + "&s=" + s,{ 
+        fetch("http://localhost:3000/api/geotags?l1=" + lat + "&l2=" + long + "&s=" + s, { 
             method: "GET"
         }).then(res => res.json())
-        .then(taglist => updateGeoTags(taglist));
+        .then(page => showPagination(page));
 
     });
 
+    
+    document.getElementById("previous").addEventListener("click", function(evt) {
+        fetch("http://localhost:3000/api/geotags/prevPage", {
+            method: "GET"
+        }).then(res => res.json())
+        .then(page => showPagination(page));
+    });
+
+    document.getElementById("next").addEventListener("click", function(evt) {
+        fetch("http://localhost:3000/api/geotags/nextPage", {
+            method: "GET"
+        }).then(res => res.json())
+        .then(page => showPagination(page));
+    });
+    
     LocationHelper.findLocation(updateLocation);
 
 });
